@@ -92,4 +92,53 @@ try {
         error: true
     })
 }}
-module.exports = { addProduct ,getAllProducts,getSingleProduct}
+const deleteProduct = async (req, res) => {
+    try {
+      let { productIds } = req.body;
+      
+      if (!productIds) {
+        return res.status(404).json({
+          message: "Product id needed",
+          status: false,
+          error: true,
+        });
+      }
+  
+      if (!Array.isArray(productIds)) {
+        productIds = [productIds];
+      }
+  
+      console.log(productIds);
+  
+      const checkProductQuery = "SELECT * FROM product WHERE id IN (?)";
+      const [result] = await pool.promise().query(checkProductQuery, [productIds]);
+  
+      if (result.length === 0) {
+        return res.status(404).json({
+          message: "Products not found",
+          status: false,
+          error: true,
+        });
+      }
+  
+      const deleteProductQuery = "DELETE FROM product WHERE id IN (?)";
+      const [deletedResult] = await pool.promise().query(deleteProductQuery, [productIds]);
+      
+      console.log(deletedResult);
+  
+      return res.status(200).json({
+        message: "Successfully deleted products",
+        status: true,
+        error: false,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        message: "Something went wrong",
+        status: false,
+        error: true,
+      });
+    }
+  };
+  
+module.exports = { addProduct , getAllProducts , getSingleProduct , deleteProduct}

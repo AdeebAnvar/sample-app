@@ -12,15 +12,21 @@ const userRoutes=require('./routes/user.js')
 const productRoutes=require('./routes/product.js')
 const cartRoutes=require('./routes/cart.js')
 const bodyParser =require('body-parser')
+const authJwt = require('./helpers/jwt')
 
 require('dotenv').config()
-
-const app = express()
+express()
 const port = process.env.port || 1010
 app.use(bodyParser.json())
+app.use(authJwt)
+
 app.use('/user', userRoutes)
 app.use('/product', productRoutes)
 app.use('/cart', cartRoutes)
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+  });
+const app = 
 app.listen(port, function () {
     console.log(`server listening... at ${port}`)
 })

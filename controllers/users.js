@@ -87,10 +87,12 @@ const login = async (req, res) => {
             return;
         }
         const user = response[0]
-
+        console.log(`res ${response[0].user}`)
+        console.log(`user ${user.email}`)
+        console.log(`userID ${user.id}`)
         const tokenPayload = {
             email: user.email,
-            userId: user.userId
+            userId: user.id
         }
         const token = await jwt.sign(tokenPayload, secret, { expiresIn: '10d' })
         return res.status(201).send({
@@ -123,25 +125,25 @@ const sendOtpViaEmail = async (req, res) => {
         let transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: 'adeebbinanvar@gmail.com',
-              pass: 'Asd@12345',
+                user: 'adeebbinanvar@gmail.com',
+                pass: 'Asd@12345',
             },
-        }) 
+        })
         let mailOptions = {
             from: 'adeebbinanvar@gmail.com',
             to: email,
             subject: 'Your OTP Code',
             text: `Your OTP code is ${otp}`,
-          };
-        
-          await transporter.sendMail(mailOptions);
+        };
+
+        await transporter.sendMail(mailOptions);
 
         return res.status(200).send({
             message: 'send',
             status: true,
             error: false,
         });
-    } catch (error) {        
+    } catch (error) {
         console.log(error);
         return res.status(404).send({
             message: 'Something went wrong',
