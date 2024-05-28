@@ -24,7 +24,7 @@ app.use(authJwt)
 app.use('/user', userRoutes)
 app.use('/product', productRoutes)
 app.use('/cart', cartRoutes)
-app.get('/', (req, res) => {
+app.get('/app.js', (req, res) => {
     res.send('Hello World!');
   });
 app.listen(port, function () {
