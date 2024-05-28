@@ -15,7 +15,8 @@ const bodyParser =require('body-parser')
 const authJwt = require('./helpers/jwt')
 
 require('dotenv').config()
-express()
+
+const app = express()
 const port = process.env.port || 1010
 app.use(bodyParser.json())
 app.use(authJwt)
@@ -26,7 +27,6 @@ app.use('/cart', cartRoutes)
 app.get('/', (req, res) => {
     res.send('Hello World!');
   });
-const app = 
 app.listen(port, function () {
     console.log(`server listening... at ${port}`)
 })
