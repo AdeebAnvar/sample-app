@@ -8,11 +8,11 @@ npm isntall dot env also
 
  */
 const express = require('express')
-const userRoutes=require('./routes/user.js')
-const productRoutes=require('./routes/product.js')
-const cartRoutes=require('./routes/cart.js')
+const userRoutes=require('./src/routes/user.js')
+const productRoutes=require('./src/routes/product.js')
+const cartRoutes=require('./src/routes/cart.js')
 const bodyParser =require('body-parser')
-const authJwt = require('./helpers/jwt')
+const authJwt = require('./src/helpers/jwt.js')
 const serverless =require('serverless-http')
 require('dotenv').config()
 
