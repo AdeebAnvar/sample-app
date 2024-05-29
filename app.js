@@ -13,7 +13,7 @@ const productRoutes=require('./routes/product.js')
 const cartRoutes=require('./routes/cart.js')
 const bodyParser =require('body-parser')
 const authJwt = require('./helpers/jwt')
-
+const serverless =require('serverless-http')
 require('dotenv').config()
 
 const app = express()
@@ -27,6 +27,7 @@ app.use('/cart', cartRoutes)
 app.get('/', (req, res) => {
     res.send('Hello World!');
   });
-app.listen(port, function () {
-    console.log(`server listening... at ${port}`)
-})
+// app.listen(port, function () {
+//     console.log(`server listening... at ${port}`)
+// })
+module.exports.handler=serverless(app)
