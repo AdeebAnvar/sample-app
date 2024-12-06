@@ -39,14 +39,11 @@ const addProduct = async (req, res) => {
 
 }
 const getAllProducts =async(req,res)=>{
-    // id
-    // name
-    // price
-    // disc price,
-    // brand name
-    // image
+
     try {
-        
+        const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
         const fetchProductsQuery ='SELECT id,name,price,discountPrice,brand,image FROM product '
         const [result] =await pool.promise().query(fetchProductsQuery)
         return res.status(200).json({

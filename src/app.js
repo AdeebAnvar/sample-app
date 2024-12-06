@@ -17,17 +17,21 @@ const serverless =require('serverless-http')
 require('dotenv').config()
 
 const app = express()
+const server =require('http').createServer(app)
 const port = process.env.port || 1010
+
+
 app.use(bodyParser.json())
 app.use(authJwt)
 
 app.use('/user', userRoutes)
 app.use('/product', productRoutes)
 app.use('/cart', cartRoutes)
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-  });
-// app.listen(port, function () {
-//     console.log(`server listening... at ${port}`)
-// })
-module.exports.handler=serverless(app)
+// app.get('/', (req, res) => {
+//     res.send('Hello World!');
+//   });
+app.listen(port, function () {
+
+    console.log(`server listening... at ${port}`)
+})
+// module.exports.handler=serverless(app)
